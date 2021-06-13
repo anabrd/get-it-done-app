@@ -29,7 +29,7 @@ function Register({setRegisterLoginToggle}) {
                     email: formData.email,
                     pass: formData.pass
                 }
-            let url = 'http://localhost:8000/auth/register'
+            let url = 'https://getitdone-backend-app.herokuapp.com/auth/register'
             let options = {
                 method: 'POST',
                 headers: {

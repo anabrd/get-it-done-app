@@ -18,7 +18,7 @@ function TaskWrapper({tasks, setTasks, updateFormToggle, deleteTask, setMessage,
         setTasks(reorderedTasks);
 
         // Send new order to backend
-        const url = "http://localhost:8000/tasks/order"
+        const url = "https://getitdone-backend-app.herokuapp.com/tasks/order"
         const options = {
             method: "POST",
             headers: {

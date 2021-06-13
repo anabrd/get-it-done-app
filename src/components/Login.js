@@ -20,7 +20,7 @@ export default function Login({setRegisterLoginToggle}) {
                 email: formData.email,
                 pass: formData.pass
             }
-        let url = 'http://localhost:8000/auth/login'
+        let url = 'https://getitdone-backend-app.herokuapp.com/auth/login'
         let options = {
             method: 'POST',
             headers: {

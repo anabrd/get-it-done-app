@@ -41,7 +41,7 @@ function Tasks() {
 
     // FETCHING TASKS
     useEffect(() => {
-        const url = "http://localhost:8000/tasks/all"
+        const url = "https://getitdone-backend-app.herokuapp.com/tasks/all"
         const options = {
             headers: {
                 'x-auth-token': token
@@ -70,7 +70,7 @@ function Tasks() {
     // ADDING NEW TASK
     const addTask = () =>  {
         setFormToggle(false);
-        const url = "http://localhost:8000/tasks/new"
+        const url = "https://getitdone-backend-app.herokuapp.com/tasks/new"
         const options = {
             method: 'POST',
             headers: {
@@ -98,7 +98,7 @@ function Tasks() {
     // EDITING TASK TITLE
     const editTaskTitle = () => {
         setFormToggle(false);
-        const url = "http://localhost:8000/tasks/title"
+        const url = "https://getitdone-backend-app.herokuapp.com/tasks/title"
         const options = {
             method: 'POST',
             headers: {
@@ -128,7 +128,7 @@ function Tasks() {
 
     // DELETING A TASK
     const deleteTask = (id) => {
-    const url = "http://localhost:8000/tasks/" + id;
+    const url = "https://getitdone-backend-app.herokuapp.com/tasks/" + id;
     const options = {
         method: "DELETE",
         headers: {
