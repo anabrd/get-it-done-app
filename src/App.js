@@ -11,18 +11,50 @@
 import Auth from './pages/Auth'
 import Tasks from './pages/Tasks'
 import { Switch, Route } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
 
 function App() {
+
+
+    // Try to do it with isProtected routes
+
+
+    const [token, setToken] = useState(localStorage.getItem("token"));
+    const [isProtected, setIsProtected] = useState(true)
+
+        useEffect(() => {
+        const url = "https://getitdone-backend-app.herokuapp.com/tasks/all"
+        const options = {
+            headers: {
+                'x-auth-token': token
+            }
+        }
+        fetch(url, options).then(result => result.json()
+        .then(output => {
+            if (output.status == "success") {
+                setIsProtected(false)
+            } else if (output.status == "failed") {
+                console.log("isProtected.")
+            }
+        }))
+        .catch(err => {
+            console.log(err)
+        });
+    }, []);
+
+    
+
     return (
       <Switch>
         <Route path="/tasks">
-          <Tasks />
+          {isProtected ? <Auth /> : <Tasks />}
         </Route>
         <Route path="/auth">
-          <Auth />
+          {isProtected ? <Auth /> : <Tasks />}
         </Route>
         <Route path="/">
-          <Auth />
+          {isProtected ? <Auth /> : <Tasks />}
         </Route>
       </Switch>
     )
