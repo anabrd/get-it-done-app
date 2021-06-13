@@ -1,10 +1,11 @@
-import { useHistory } from 'react-router-dom'
-import { useState } from 'react'
+import { useHistory, Redirect } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { Button, FormControl, Paper, TextField } from '@material-ui/core'
 
 export default function Login({setRegisterLoginToggle}) {
 
     const [successMsg, setSuccessMsg] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     let history = useHistory();
     let formData = {};
@@ -37,10 +38,8 @@ export default function Login({setRegisterLoginToggle}) {
                     setSuccessMsg(result.message)
                 } else {
                     setSuccessMsg(result.message);
-                    localStorage.setItem("token", result.data)
-                    setTimeout(() => {
-                        history.push("/tasks");
-                    }, 3000);
+                    localStorage.setItem("token", result.data);
+                    history.push("/tasks")
                 }
             }
             ));

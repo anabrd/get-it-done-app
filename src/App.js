@@ -21,7 +21,9 @@ function App() {
 
 
     const [token, setToken] = useState(localStorage.getItem("token"));
-    const [isProtected, setIsProtected] = useState(true)
+    const [isProtected, setIsProtected] = useState(true);
+
+    console.log("app reloaded")
 
         useEffect(() => {
         const url = "https://getitdone-backend-app.herokuapp.com/tasks/all"
@@ -48,13 +50,13 @@ function App() {
     return (
       <Switch>
         <Route path="/tasks">
-          {isProtected ? <Auth /> : <Tasks />}
+          <Tasks />
         </Route>
         <Route path="/auth">
-          {isProtected ? <Auth /> : <Tasks />}
+          <Auth />
         </Route>
         <Route path="/">
-          {isProtected ? <Auth /> : <Tasks />}
+          <Auth />
         </Route>
       </Switch>
     )
