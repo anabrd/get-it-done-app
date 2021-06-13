@@ -20,6 +20,7 @@ function Tasks() {
     const [loader, setLoader] = useState(true);
     const [message, setMessage] = useState("");
     const [showMessage, setShowMessage] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem('token'));
 
     let history = useHistory();
 
@@ -35,7 +36,7 @@ function Tasks() {
         const url = "https://getitdone-backend-app.herokuapp.com/tasks/all"
         const options = {
             headers: {
-                'x-auth-token': localStorage.getItem('token')
+                'x-auth-token': token
             }
         }
 
@@ -91,8 +92,8 @@ function Tasks() {
         const options = {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': localStorage.getItem("token")
+                'Content-Type': 'application/json',
+                'x-auth-token': localStorage.getItem("token")
             },
             body: JSON.stringify(newTask)
         };
