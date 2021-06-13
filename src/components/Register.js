@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Button, FormControl, Input, InputLabel, Paper , TextField} from '@material-ui/core'
 
 function Register({setRegisterLoginToggle}) {
@@ -29,7 +29,7 @@ function Register({setRegisterLoginToggle}) {
                     email: formData.email,
                     pass: formData.pass
                 }
-            let url = 'https://getitdone-backend-app.herokuapp.com/auth/register'
+            let url = 'http://localhost:8000/auth/register'
             let options = {
                 method: 'POST',
                 headers: {

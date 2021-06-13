@@ -31,9 +31,17 @@ function Tasks() {
         setFormToggle(prevState => !prevState);
     }
 
+    // MESSAGE DISPLAY
+    const displayMessage = () => {
+        setShowMessage(true);
+        setTimeout(() => {
+            setShowMessage(false);
+        }, 3000);
+    };
+
     // FETCHING TASKS
     useEffect(() => {
-        const url = "https://getitdone-backend-app.herokuapp.com/tasks/all"
+        const url = "http://localhost:8000/tasks/all"
         const options = {
             headers: {
                 'x-auth-token': token
@@ -43,6 +51,8 @@ function Tasks() {
         fetch(url, options).then(result => result.json()
         .then(output => {
             if (output.status == "success") {
+                // Rearrange fetched tasks according to their orderID
+                output.data.sort((a,b) => (a.orderId > b.orderId) ? 1 : ((b.orderId > a.orderId) ? -1 : 0))
                 setTasks(output.data);
                 setLoader(false);
             } else if (output.status == "failed") {
@@ -60,7 +70,7 @@ function Tasks() {
     // ADDING NEW TASK
     const addTask = () =>  {
         setFormToggle(false);
-        const url = "https://getitdone-backend-app.herokuapp.com/tasks/new"
+        const url = "http://localhost:8000/tasks/new"
         const options = {
             method: 'POST',
             headers: {
@@ -71,24 +81,24 @@ function Tasks() {
         };
     fetch(url, options)
     .then(result => result.json()
-    .then(output => {
-    if (output.status == "success") {
-        setTasks([...tasks,output.data]);
-        setNewTask({});
-        setMessage(output.message);
-        displayMessage();
-    } else {
-        setMessage(output.message);
-        displayMessage();
-    }
-    }
+        .then(output => {
+            if (output.status == "success") {
+                setTasks([...tasks,output.data]);
+                setNewTask({});
+                setMessage(output.message);
+                displayMessage();
+            } else {
+                setMessage(output.message);
+                displayMessage();
+            }
+        }
     )).catch(err => setMessage(err));
     }
 
     // EDITING TASK TITLE
     const editTaskTitle = () => {
         setFormToggle(false);
-        const url = "https://getitdone-backend-app.herokuapp.com/tasks/title"
+        const url = "http://localhost:8000/tasks/title"
         const options = {
             method: 'POST',
             headers: {
@@ -99,27 +109,26 @@ function Tasks() {
         };
     fetch(url, options)
     .then(result => result.json()
-    .then(output => {
-        if (output.status === "success") {
-            let updatedArr = [];
-            updatedArr = [...tasks];
-            const index = tasks.findIndex(task => task._id == output.data._id);
-            updatedArr[index] = output.data;
-            setTasks([...updatedArr]);
-            setMessage(output.message);
-            displayMessage();
-        } else {
-            setMessage(output.message)
-            displayMessage();
-        }
+        .then(output => {
+            if (output.status === "success") {
+                let updatedArr = [];
+                updatedArr = [...tasks];
+                const index = tasks.findIndex(task => task._id == output.data._id);
+                updatedArr[index] = output.data;
+                setTasks([...updatedArr]);
+                setMessage(output.message);
+                displayMessage();
+            } else {
+                setMessage(output.message)
+                displayMessage();
+            }
     }))
     .catch(err => console.log(err));
     };
 
     // DELETING A TASK
     const deleteTask = (id) => {
-    console.log(id)
-    const url = "https://getitdone-backend-app.herokuapp.com/tasks/" + id;
+    const url = "http://localhost:8000/tasks/" + id;
     const options = {
         method: "DELETE",
         headers: {
@@ -142,13 +151,13 @@ function Tasks() {
     })).catch(err => console.log(err))
     }
 
-    // MESSAGE DISPLAY
-    const displayMessage = () => {
-        setShowMessage(true);
-        setTimeout(() => {
-            setShowMessage(false);
-        }, 3000);
-    };
+    // LOGOUT
+
+    const logout = () => {
+        console.log("logout works")
+        localStorage.removeItem("token");
+        history.push("/")
+    }
 
     return (
     <>
@@ -169,19 +178,21 @@ function Tasks() {
                     message={message} 
                     showMessage={showMessage}
                 />
+                <p className="logout" onClick={logout}>Logout</p>
             </div>
-
-            {loader ? <CircularProgress color="secondary" /> : 
             <div className="task-wrapper">
+                {loader ?
+                <CircularProgress color="secondary" /> : 
                 <TaskWrapper 
                     className = "taskWrapper"
                     tasks = {tasks}
+                    setTasks = {setTasks}
                     deleteTask = {deleteTask}
                     updateFormToggle = {updateFormToggle}
                     setMessage = {setMessage}
                     displayMessage = {displayMessage}
-                />
-            </div>}
+                />}
+            </div>
         </Box>
         {formToggle && 
             <Form 

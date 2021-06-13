@@ -1,26 +1,45 @@
-import { useState, useEffect } from 'react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Grid } from '@material-ui/core';
-import Task from './Task'
-import Tasks from '../pages/Tasks';
+import { Box } from '@material-ui/core';
+import Task from './Task';
 
-function TaskWrapper({tasks, updateFormToggle, deleteTask, setMessage, displayMessage}) {
-
-    const [taskList, setTaskList] = useState(tasks);
-
-    useEffect(() => {
-        setTaskList(tasks)
-    }, [Tasks])
+function TaskWrapper({tasks, setTasks, updateFormToggle, deleteTask, setMessage, displayMessage}) {
 
     function onDragEnd(result) {
         if (!result.destination) return;
-        const items = Array.from(taskList);
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-        setTaskList(items);
+
+        const reorderedTasks = Array.from(tasks);
+        const [reorderedTask] = reorderedTasks.splice(result.source.index, 1);
+        reorderedTasks.splice(result.destination.index, 0, reorderedTask);
+        console.log('reorderedtasks before foreach', reorderedTasks);
+
+        reorderedTasks.forEach((task, index) => task.orderId = index);
+
+        console.log('reorderedtasks after foreach', reorderedTasks);
+        setTasks(reorderedTasks);
+
+        // Send new order to backend
+        const url = "http://localhost:8000/tasks/order"
+        const options = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': localStorage.getItem("token")
+            },
+            body: JSON.stringify(reorderedTasks)
+        };
+        fetch(url, options)
+        .then(result => result.json()
+        .then(output => {
+            if (output.status == "success") {
+                console.log("OK")
+            } else {
+                console.log("Not OK")
+            }
+        }))
+        .catch(err => console.log(err));
     }
 
-    let draggableComp = taskList.map((taskItem, index) => {
+    let draggableComp = tasks.map((taskItem, index) => {
                     return (
                         <Draggable key={taskItem._id} draggableId={taskItem._id} index={index}>
                             {(provided) => (
@@ -39,9 +58,11 @@ function TaskWrapper({tasks, updateFormToggle, deleteTask, setMessage, displayMe
                     })
 
     return (
-        <Grid container justify="center" 
-        spacing={1}  
-        style = {{padding: "3%"}}>
+        <Box 
+            container 
+            justify="center"
+            style = {{padding: "3%"}}
+        >
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="tasks">
                     {(provided) => (
@@ -52,7 +73,7 @@ function TaskWrapper({tasks, updateFormToggle, deleteTask, setMessage, displayMe
                     )}
                 </Droppable>
             </DragDropContext>
-        </Grid>
+        </Box>
     )
 }
 

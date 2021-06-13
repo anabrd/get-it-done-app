@@ -25,7 +25,7 @@ function Task({task, deleteTask, updateFormToggle, setMessage, displayMessage}) 
     const editTaskStatus = (status) => {
         task.isFinished = !status;
         let updatedTask = {...task};
-        const url = "https://getitdone-backend-app.herokuapp.com/tasks/status"
+        const url = "http://localhost:8000/tasks/status"
         const options = {
             method: "POST",
             headers: {

@@ -9,26 +9,15 @@
 // Add warning when no user input on addTask
 
 import Auth from './pages/Auth'
-import Tasks from './pages/Tasks'
+import Home from './pages/Home'
 import { Switch, Route } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 
 
 function App() {
-
-
-    // Try to do it with isProtected routes
-
-
-    const [token, setToken] = useState(localStorage.getItem("token"));
-    const [isProtected, setIsProtected] = useState(true);
-
-    console.log("app reloaded")
-
     return (
       <Switch>
-        <Route path="/tasks">
-          <Tasks />
+        <Route path="/home">
+          <Home />
         </Route>
         <Route path="/auth">
           <Auth />

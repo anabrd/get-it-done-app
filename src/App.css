@@ -28,6 +28,7 @@ h1 {
   overflow-y: scroll;
   width: 60vw;
   overflow-x: hidden;
+  align-items: center;
 }
 
 .tip {
@@ -51,4 +52,32 @@ h1 {
   height: 70%;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.logout {
+  text-decoration: underline;
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 580px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .main > div{
+    width: 100%;
+  }
+
+  .info-wrapper {
+    justify-content: start;
+  }
+
+  .task-wrapper {
+    justify-content: start;
+    height: 50vh;
+    overflow-y: visible;
+  }
 }
