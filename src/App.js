@@ -25,28 +25,6 @@ function App() {
 
     console.log("app reloaded")
 
-        useEffect(() => {
-        const url = "https://getitdone-backend-app.herokuapp.com/tasks/all"
-        const options = {
-            headers: {
-                'x-auth-token': token
-            }
-        }
-        fetch(url, options).then(result => result.json()
-        .then(output => {
-            if (output.status == "success") {
-                setIsProtected(false)
-            } else if (output.status == "failed") {
-                console.log("isProtected.")
-            }
-        }))
-        .catch(err => {
-            console.log(err)
-        });
-    }, []);
-
-    
-
     return (
       <Switch>
         <Route path="/tasks">
