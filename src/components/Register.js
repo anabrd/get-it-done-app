@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Button, FormControl, Input, InputLabel, Paper , TextField} from '@material-ui/core'
+import { Button, FormControl, FormHelperText, IconButton, Input, InputAdornment, InputLabel, Paper, TextField } from '@material-ui/core'
+import {Visibility, VisibilityOff } from '@material-ui/icons'
 
 function Register({setRegisterLoginToggle}) {
 
@@ -9,7 +10,13 @@ function Register({setRegisterLoginToggle}) {
     const [passErrMsg, setPassErrMsg] = useState("");
     const [loginErrMsg, setLoginErrMsg] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
-    const [formData, setFormData] = useState({email:"", pass:"", passConf:""});
+    const [showPass, setShowPass] = useState(false);
+
+    let formData = {};
+
+    let handleClickShowPassword = () => {
+        setShowPass(prevValue => !prevValue);
+    }
 
     const fillForm = (e) => {
         formData[e.target.id] = e.target.value;
@@ -56,7 +63,6 @@ function Register({setRegisterLoginToggle}) {
     }
 
     return (
-        
         <Paper elevation={2}  className="authForm-wrapper">
                 <form onSubmit={submitHandler}  className="authForm">
                     <FormControl>
@@ -64,27 +70,52 @@ function Register({setRegisterLoginToggle}) {
                         id="email"
                         label="Email"
                         aria-describedby="my-helper-text" 
-                        autoFocus = "true"
-                        required = "true"
+                        autoFocus="true"
+                        required="true"
                         error={loginError}
                         helperText={loginErrMsg}
-                        onChange = {fillForm}/>
+                        onChange={fillForm}/>
                     </FormControl>
                     <FormControl>
-                        <TextField 
+                        <InputLabel 
+                        htmlFor="pass" 
+                        required={true}>
+                            Password
+                        </InputLabel>
+                        <Input
                         id="pass" 
                         label="Password"
-                        required = "true"
-                        onChange = {fillForm}/>
+                        onChange = {fillForm}
+                        value = {formData.pass}
+                        type={showPass ? 'text' : 'password'}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                >
+                                {showPass ?  <Visibility /> :
+                                <VisibilityOff />}
+                                </IconButton>
+                            </InputAdornment>
+                        }/>
                     </FormControl>
                     <FormControl>
-                        <TextField 
+                        <InputLabel 
+                        htmlFor="passConf" 
+                        required = {true}>
+                            Confirm Password
+                        </InputLabel>
+                        <Input
                         id="passConf" 
                         label="Confirm Password"
-                        required = "true"
                         error={passError}
                         helperText={passErrMsg}
-                        onChange = {fillForm}/>
+                        onChange = {fillForm}
+                        value = {formData.passConf}
+                        type={showPass ? 'text' : 'password'}
+                        />
+                        <FormHelperText id="passConfErr">{passErrMsg}</FormHelperText>
                     </FormControl>
                     <Button 
                         type="submit" 

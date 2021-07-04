@@ -1,18 +1,28 @@
 import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
-import { Button, FormControl, Paper, TextField } from '@material-ui/core'
+import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Paper, TextField } from '@material-ui/core'
+import {Visibility, VisibilityOff } from '@material-ui/icons'
 
 export default function Login({setRegisterLoginToggle}) {
 
     const [successMsg, setSuccessMsg] = useState("");
+    const [showPass, setShowPass] = useState(false);
 
     let history = useHistory();
     let formData = {};
+
+    // Toggle password visibility
+    let handleClickShowPassword = () => {
+        setShowPass(prevValue => !prevValue);
+    }
+
+    // Firm form
     const fillForm = (e) => {
         formData[e.target.id] = e.target.value;
         console.log(formData);
     }
 
+    // Submit form
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(formData)
@@ -58,11 +68,28 @@ export default function Login({setRegisterLoginToggle}) {
                     onChange = {fillForm}/>
                 </FormControl>
                 <FormControl>
-                    <TextField 
-                    id="pass" 
-                    label="Password"
-                    required = "true"
-                    onChange = {fillForm}/>
+                    <InputLabel 
+                    htmlFor="pass" 
+                    required = {true}>
+                        Password
+                    </InputLabel>
+                    <Input
+                    id = "pass" 
+                    label = "Password"
+                    onChange = {fillForm}
+                    value = {formData.pass}
+                    type={showPass ? 'text' : 'password'}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            >
+                            {showPass ?  <Visibility /> :
+                            <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    }/>
                 </FormControl>
                 <Button 
                     type="submit" 
