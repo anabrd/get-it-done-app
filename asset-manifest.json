@@ -1,26 +1,27 @@
 {
   "files": {
-    "main.css": "/get-it-done-app/static/css/main.de5fc47a.chunk.css",
-    "main.js": "/get-it-done-app/static/js/main.68b29cfa.chunk.js",
-    "main.js.map": "/get-it-done-app/static/js/main.68b29cfa.chunk.js.map",
-    "runtime-main.js": "/get-it-done-app/static/js/runtime-main.51f16d47.js",
-    "runtime-main.js.map": "/get-it-done-app/static/js/runtime-main.51f16d47.js.map",
+    "main.css": "/get-it-done-app/static/css/main.8313b0a9.chunk.css",
+    "main.js": "/get-it-done-app/static/js/main.310d6c3a.chunk.js",
+    "main.js.map": "/get-it-done-app/static/js/main.310d6c3a.chunk.js.map",
+    "runtime-main.js": "/get-it-done-app/static/js/runtime-main.7f1cccf4.js",
+    "runtime-main.js.map": "/get-it-done-app/static/js/runtime-main.7f1cccf4.js.map",
     "static/css/2.c12c5fa8.chunk.css": "/get-it-done-app/static/css/2.c12c5fa8.chunk.css",
-    "static/js/2.2c43d6f6.chunk.js": "/get-it-done-app/static/js/2.2c43d6f6.chunk.js",
-    "static/js/2.2c43d6f6.chunk.js.map": "/get-it-done-app/static/js/2.2c43d6f6.chunk.js.map",
-    "static/js/3.f12dbd5a.chunk.js": "/get-it-done-app/static/js/3.f12dbd5a.chunk.js",
-    "static/js/3.f12dbd5a.chunk.js.map": "/get-it-done-app/static/js/3.f12dbd5a.chunk.js.map",
+    "static/js/2.dc14a979.chunk.js": "/get-it-done-app/static/js/2.dc14a979.chunk.js",
+    "static/js/2.dc14a979.chunk.js.map": "/get-it-done-app/static/js/2.dc14a979.chunk.js.map",
+    "static/js/3.24383de8.chunk.js": "/get-it-done-app/static/js/3.24383de8.chunk.js",
+    "static/js/3.24383de8.chunk.js.map": "/get-it-done-app/static/js/3.24383de8.chunk.js.map",
     "index.html": "/get-it-done-app/index.html",
     "static/css/2.c12c5fa8.chunk.css.map": "/get-it-done-app/static/css/2.c12c5fa8.chunk.css.map",
-    "static/css/main.de5fc47a.chunk.css.map": "/get-it-done-app/static/css/main.de5fc47a.chunk.css.map",
-    "static/js/2.2c43d6f6.chunk.js.LICENSE.txt": "/get-it-done-app/static/js/2.2c43d6f6.chunk.js.LICENSE.txt",
+    "static/css/main.8313b0a9.chunk.css.map": "/get-it-done-app/static/css/main.8313b0a9.chunk.css.map",
+    "static/js/2.dc14a979.chunk.js.LICENSE.txt": "/get-it-done-app/static/js/2.dc14a979.chunk.js.LICENSE.txt",
+    "static/media/empty-box.a72ddfc2.png": "/get-it-done-app/static/media/empty-box.a72ddfc2.png",
     "static/media/index.css": "/get-it-done-app/static/media/raleway-vietnamese-400-normal.41f91bf2.woff2"
   },
   "entrypoints": [
-    "static/js/runtime-main.51f16d47.js",
+    "static/js/runtime-main.7f1cccf4.js",
     "static/css/2.c12c5fa8.chunk.css",
-    "static/js/2.2c43d6f6.chunk.js",
-    "static/css/main.de5fc47a.chunk.css",
-    "static/js/main.68b29cfa.chunk.js"
+    "static/js/2.dc14a979.chunk.js",
+    "static/css/main.8313b0a9.chunk.css",
+    "static/js/main.310d6c3a.chunk.js"
   ]
 }
