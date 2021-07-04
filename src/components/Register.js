@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, FormControl, FormHelperText, IconButton, Input, InputAdornment, InputLabel, Paper, TextField } from '@material-ui/core'
-import {Visibility, VisibilityOff } from '@material-ui/icons'
+import { Button, CircularProgress, FormControl, FormHelperText, IconButton, Input, InputAdornment, InputLabel, Paper, TextField } from '@material-ui/core'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 
 function Register({setRegisterLoginToggle}) {
 
@@ -11,6 +11,7 @@ function Register({setRegisterLoginToggle}) {
     const [loginErrMsg, setLoginErrMsg] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
     const [showPass, setShowPass] = useState(false);
+    const [loader, setLoader] = useState(false)
 
     let formData = {};
 
@@ -28,14 +29,21 @@ function Register({setRegisterLoginToggle}) {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        if (formData.pass !== formData.passConf) {
+        setPassErrMsg("");
+        setLoginErrMsg("");
+        setSuccessMsg("")
+        setLoader(true);
+        let data = {
+                email: formData.email,
+                pass: formData.pass
+            }
+        if (!data.pass) {
+            setPassError(true);
+            setPassErrMsg("Please enter a password.");
+        } else if (data.pass !== formData.passConf) {
             setPassError(true);
             setPassErrMsg("Please make sure the passwords match.");
         } else {
-            let data = {
-                    email: formData.email,
-                    pass: formData.pass
-                }
             let url = 'https://getitdone-backend-app.herokuapp.com/auth/register'
             let options = {
                 method: 'POST',
@@ -50,13 +58,15 @@ function Register({setRegisterLoginToggle}) {
                 {
                     if (result.status == "failed") {
                         setLoginErrMsg(result.message);
-                        setLoginError(true)
+                        setLoginError(true);
+                        setLoader(false)
                     } else {
                         setRegistered(true);
-                        setSuccessMsg(result.message + "✅ Redirecting to login page...");
+                        setSuccessMsg("Welcome aboard! Redirecting to login...");
                         setTimeout(() => {
                             setRegisterLoginToggle(true);
-                        }, 3000);
+                            setLoader(false)
+                        }, 2000);
                     }
                 }));
         }
@@ -131,6 +141,7 @@ function Register({setRegisterLoginToggle}) {
                         >Log In</span>
                 </p>
                 <p>{successMsg}</p>
+                {loader && <CircularProgress color="secondary" />}
             </Paper>
     )
 }

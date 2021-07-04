@@ -1,12 +1,12 @@
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Box } from '@material-ui/core';
 import Task from './Task';
+import emptyBox from '../empty-box.png'
 
 function TaskWrapper({tasks, setTasks, updateFormToggle, deleteTask, setMessage, displayMessage}) {
 
     function onDragEnd(result) {
         if (!result.destination) return;
-
         const reorderedTasks = Array.from(tasks);
         const [reorderedTask] = reorderedTasks.splice(result.source.index, 1);
         reorderedTasks.splice(result.destination.index, 0, reorderedTask);
@@ -63,6 +63,12 @@ function TaskWrapper({tasks, setTasks, updateFormToggle, deleteTask, setMessage,
             justify="center"
             style = {{padding: "3%"}}
         >
+            {tasks.length === 0 ? 
+            <div className="empty-box-wrapper">
+                <img className="empty-box" src={emptyBox} /> 
+                <p>Nothing here yet!</p>
+            </div>
+            :
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="tasks">
                     {(provided) => (
@@ -72,7 +78,8 @@ function TaskWrapper({tasks, setTasks, updateFormToggle, deleteTask, setMessage,
                     </div>
                     )}
                 </Droppable>
-            </DragDropContext>
+            </DragDropContext>}
+            
         </Box>
     )
 }

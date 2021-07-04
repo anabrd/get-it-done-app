@@ -3,7 +3,7 @@ import Form from '../components/Form';
 import Message from '../components/Message';
 import '../App.css';
 import { useState, useEffect } from 'react';
-import { Box, CircularProgress, Grid, Fab, Typography, makeStyles } from '@material-ui/core';
+import { Box, CircularProgress, Fab} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import '@fontsource/raleway';
 import { useHistory } from 'react-router-dom';

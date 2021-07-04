@@ -1,12 +1,13 @@
 import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
-import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Paper, TextField } from '@material-ui/core'
-import {Visibility, VisibilityOff } from '@material-ui/icons'
+import { Button, CircularProgress, FormControl, IconButton, Input, InputAdornment, InputLabel, Paper, TextField } from '@material-ui/core'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 
 export default function Login({setRegisterLoginToggle}) {
 
-    const [successMsg, setSuccessMsg] = useState("");
+    const [msg, setMsg] = useState("");
     const [showPass, setShowPass] = useState(false);
+    const [loader, setLoader] = useState(false)
 
     let history = useHistory();
     let formData = {};
@@ -25,11 +26,16 @@ export default function Login({setRegisterLoginToggle}) {
     // Submit form
     const submitHandler = (e) => {
         e.preventDefault();
+        setLoader(true);
+        setMsg("");
         console.log(formData)
         let data = {
                 email: formData.email,
                 pass: formData.pass
             }
+        if (!data.pass) {
+            data.pass = ""
+        }
         let url = 'https://getitdone-backend-app.herokuapp.com/auth/login'
         let options = {
             method: 'POST',
@@ -39,20 +45,19 @@ export default function Login({setRegisterLoginToggle}) {
             body: JSON.stringify(data)
         }
 
-        console.log(data, url, options)
-
         fetch(url, options).then(output => output.json().then(result => 
             {
-                if (result.status == "failed") {
-                    setSuccessMsg(result.message)
+                if (result.status === "failed") {
+                    setMsg(result.message)
                 } else {
-                    setSuccessMsg(result.message);
+                    setMsg(result.message);
                     localStorage.setItem("token", result.data);
                     history.push("/home")
                 }
+                setLoader(false);
             }
             ));
-        }
+    }
 
 
     return (
@@ -63,8 +68,8 @@ export default function Login({setRegisterLoginToggle}) {
                     id="email"
                     label="Email"
                     aria-describedby="my-helper-text" 
-                    autoFocus = "true"
-                    required = "true"
+                    autoFocus = {true}
+                    required ={true}
                     onChange = {fillForm}/>
                 </FormControl>
                 <FormControl>
@@ -78,6 +83,7 @@ export default function Login({setRegisterLoginToggle}) {
                     label = "Password"
                     onChange = {fillForm}
                     value = {formData.pass}
+                    autoComplete="current-password"
                     type={showPass ? 'text' : 'password'}
                     endAdornment={
                         <InputAdornment position="end">
@@ -103,7 +109,8 @@ export default function Login({setRegisterLoginToggle}) {
                     onClick={() => setRegisterLoginToggle(false)}
                     >Register</span>
             </p>
-            <p>{successMsg}</p>
+            <p>{msg}</p>
+            {loader && <CircularProgress color="secondary" />}
         </Paper>
     )
 }
