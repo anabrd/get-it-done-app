@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/get-it-done-app/static/css/main.8313b0a9.chunk.css",
+    "main.css": "/get-it-done-app/static/css/main.9209e762.chunk.css",
     "main.js": "/get-it-done-app/static/js/main.310d6c3a.chunk.js",
     "main.js.map": "/get-it-done-app/static/js/main.310d6c3a.chunk.js.map",
     "runtime-main.js": "/get-it-done-app/static/js/runtime-main.7f1cccf4.js",
@@ -12,7 +12,7 @@
     "static/js/3.24383de8.chunk.js.map": "/get-it-done-app/static/js/3.24383de8.chunk.js.map",
     "index.html": "/get-it-done-app/index.html",
     "static/css/2.c12c5fa8.chunk.css.map": "/get-it-done-app/static/css/2.c12c5fa8.chunk.css.map",
-    "static/css/main.8313b0a9.chunk.css.map": "/get-it-done-app/static/css/main.8313b0a9.chunk.css.map",
+    "static/css/main.9209e762.chunk.css.map": "/get-it-done-app/static/css/main.9209e762.chunk.css.map",
     "static/js/2.dc14a979.chunk.js.LICENSE.txt": "/get-it-done-app/static/js/2.dc14a979.chunk.js.LICENSE.txt",
     "static/media/empty-box.a72ddfc2.png": "/get-it-done-app/static/media/empty-box.a72ddfc2.png",
     "static/media/index.css": "/get-it-done-app/static/media/raleway-vietnamese-400-normal.41f91bf2.woff2"
@@ -21,7 +21,7 @@
     "static/js/runtime-main.7f1cccf4.js",
     "static/css/2.c12c5fa8.chunk.css",
     "static/js/2.dc14a979.chunk.js",
-    "static/css/main.8313b0a9.chunk.css",
+    "static/css/main.9209e762.chunk.css",
     "static/js/main.310d6c3a.chunk.js"
   ]
 }
